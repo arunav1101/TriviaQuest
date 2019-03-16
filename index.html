@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trivia Quest!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Slackey" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css" />
+    <!-- Text to Speech-->
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="card mb-3 border-0" style="height: 150px">
+            <img class="card-img-top" src="./assets/images/pixarHeader.jpg" alt="colorful cubes" style="height:100%">
+            <div class="card-img-overlay d-flex justify-content-center align-items-center">
+                <p class="title-letter">T</p>
+                <p class="title-letter">R</p>
+                <p class="title-letter">I</p>
+                <p class="title-letter">V</p>
+                <p class="title-letter">I</p>
+                <p class="title-letter">A</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p class="title-letter">Q</p>
+                <p class="title-letter">U</p>
+                <p class="title-letter">E</p>
+                <p class="title-letter">S</p>
+                <p class="title-letter">T</p>
+                <p class="title-letter">!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="card text-white bg-transparent border-0 padding-0">
+                    <div id="player" class="card-body">
+                        <div id="user-container">
+                            <img class="card-img" src="./assets/images/headbackground.jpg" alt="Card image">
+                            <div class="card-img-overlay">
+                                <div class="form-group">
+
+                                    <div class="row mt-2 ml-3">
+                                        <div>
+                                            <div class="col-6 float-right">
+                                                <button type="button" id="emailSignOut" class="btn btn-primary d-none btn-sm">Sign
+                                                    Out</button>
+                                                <button type="button" id="facebookSignOut" class="btn btn-primary d-none btn-sm">Sign
+                                                    Out</button>
+                                            </div>
+                                            <div class="col-6 float-left">
+                                                <h5>Welcome!</h5>
+                                            </div>
+                                            <div class="col-12 mt-3 mb-2 float-left" id="playerPic"></div>
+                                            <div class="col-12 float-left">
+                                                <h5 id="userScore"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card text-white bg-transparent border-0 padding-0">
+                        <div id="allplayers" class="card-body">
+                            <img class="card-img" src="./assets/images/headbackground.jpg" alt="Card image">
+
+                            <div class="card-img-overlay">
+                                <div class="ml-3 mt-2 pstitle">Player Scores:</div>
+                                <div id="usersScoreBoard"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card text-white bg-transparent border-0 padding-0">
+                        <div id="inviteplayer" class="card-body text-center">
+                            <img class="card-img" src="./assets/images/headbackground.jpg" alt="Card image">
+                            <div class="card-img-overlay mt-1">
+                                <!-- Invite a friend!<br>
+                                <label for="">
+                                    <input type="text" id="friendEmail" placeholder="example@email.com" value="">
+                                </label><br>
+                                <button id="submitEmail" class="myButton">Send</button> -->
+
+                                <!-- speech to text codes -->
+
+                                <div id="info" style="display:none !important;">
+                                    <p id="info_speak_now">Speaking ...</p>
+                                    <p id="info_no_speech" style="display:none !important;">No speech was detected. You
+                                        may need to adjust your
+                                        <a style="display:none !important;" href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+                                            microphone settings</a>.</p>
+                                    <p style="display:none !important;" id="info_no_microphone" style="display:none">
+                                        No microphone was found. Ensure that a microphone is installed and that
+                                        <a style="display:none !important;" href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+                                            microphone settings</a> are configured correctly.</p>
+                                    <p style="display:none !important;" id="info_allow">Click the "Allow" button above
+                                        to enable your microphone.</p>
+                                    <p style="display:none !important;" id="info_denied">Permission to use microphone
+                                        was denied.</p>
+                                    <p style="display:none !important;" id="info_blocked">Permission to use microphone
+                                        is blocked. To change,
+                                        go to chrome://settings/contentExceptions#media-stream</p>
+                                    <p style="display:none !important;" id="info_upgrade">Web Speech API is not
+                                        supported by this browser.
+                                        Upgrade to <a href="//www.google.com/chrome">Chrome</a>
+                                    </p>
+                                </div>
+                                <div class="mt-4">
+                                    <button id="start_button" onclick="startButton(event);">
+                                        <img id="start_img" class="rounded-circle" src="mic.gif" alt="Start"></button>
+                                </div>
+                                <div id="results">
+                                    <span id="final_span" class="final"></span>
+                                    <span id="interim_span" class="interim"></span>
+                                    <span id="copy_button" class="d-none"></span>
+                                    <span id="email_button" class="d-none"></span>
+                                    <span id="copy_info" class="d-none"></span>
+                                    <span id="email_info" class="d-none"></span>
+
+
+                                </div>
+
+                                <div style="display:none !important;" id="div_language">
+                                    <select style="display:none !important;" id="select_language" style="display:none;"
+                                        onchange="updateCountry()"></select>
+                                    &nbsp;&nbsp;
+                                    <select style="display:none !important;" style="display:none;" id="select_dialect"></select>
+                                </div>
+
+                                <!-- end of speech to text-->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8" style="max-height: 400px;">
+                <div class="card text-white bg-transparent border-0 padding-0">
+                    <div class="card-body">
+                        <img class="card-img" src="./assets/images/headbackground.jpg" alt="Card image">
+                        <div class="card-img-overlay text-center">
+                            <div id="thetrivia" class="card-body divwrapRadio">
+                                <h6 id="topic">Waiting for topic ...</h6>
+                                <div id="questionId" class="questionAnswer mt-3">
+                                    Waiting for question ...
+                                </div>
+                                <div class="radio questionAnswer mt-3">
+                                    1: <label> <input id="answ1" type="radio" name="optradio " class="cursorPointer">Waiting
+                                        for answer ...</label>
+                                </div>
+                                <div class="radio questionAnswer">
+                                    2: <label> <input id="answ2" type="radio" name="optradio" class="cursorPointer">Waiting
+                                        for answer ...</label>
+                                </div>
+                                <div class="radio questionAnswer">
+                                    3: <label> <input id="answ3" type="radio" name="optradio" class="cursorPointer">Waiting
+                                        for answer ...</label>
+                                </div>
+                                <div class="radio questionAnswer">
+                                    4: <label><input id="answ4" type="radio" name="optradio" class="cursorPointer">Waiting
+                                        for answer ...</label>
+                                </div>
+                                <div id="showTimer" class="showTimer mt-3"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card text-white bg-transparent border-0 padding-0">
+                    <div class="card-body text-center">
+                        <img class="card-img" src="./assets/images/headbackground.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <div id="msgList" class="ml-2 mt-2"></div>
+                            <form action="">
+                                <label for="">
+                                    Message: <input type="text" id="msginput" placeholder="Your insult:" value=""
+                                        autofocus>
+                                </label>
+                                <button id="btnSubmit" class="myButton ml-4 mt-2">Taunt!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Login Modal -->
+    <div class="modal fade" id="loginModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><span style="font-size: 1em; color: White;"><i class="fas fa-question-circle fa-spin fa-fw"></i></span>
+                        Login</h4>
+                    <button type="button" id="loginCloseBtn" class="close d-none btn-sm" data-dismiss="modal">X</button>
+                </div>
+
+                <!-- Modal body -->
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="usrname"><span class=""><i class="fas fa-envelope"></i></span> Email</label>
+                        <input type="email" class="form-control" id="loginInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Ex: key@lime.pie">
+                    </div>
+                    <div class="form-group">
+                        <label for="usrname"><span class=""><i class="fas fa-lock"></i></span> Password</label>
+                        <input type="password" class="form-control" id="loginInputPassword1" placeholder="Ex: H0wNoVV!!">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12" id="errLoginMessage"></div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+                    <button id="fbLoginFunc" class="loginBtn loginBtn--facebook btn-sm">Login</button>
+                    <!--<button class="loginBtn loginBtn--google float-left">Login</button>-->
+                    <button type="submit" id="btnLogin" class="btn btn-primary btn-sm">Login</button>
+                    <button type="button" id="openSignup" class="btn btn-secondary btn-sm" data-toggle="modal"
+                        data-target="#signupModal">Signup</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- The Signup Modal -->
+    <div class="modal fade" id="signupModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fas fa-question-circle fa-spin fa-fw"></i> Signup</h4>
+                </div>
+
+                <!-- Modal body -->
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="usrname"><span class=""><i class="fas fa-user"></i></span> User Name</label>
+                        <input type="name" class="form-control mb-3" id="signupDisplayName" aria-describedby="nameHelp"
+                            placeholder="Ex: Coral">
+                    </div>
+                    <div class="form-group">
+                        <label for="usrname"><span class=""><i class="fas fa-envelope"></i></span> Email</label>
+                        <input type="email" class="form-control" id="signupInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Ex: key@lime.pie">
+                    </div>
+                    <div class="form-group">
+                        <label for="usrname"><span class=""><i class="fas fa-lock"></i></span> Password</label>
+                        <input type="password" class="form-control" id="signupInputPassword1" placeholder="Ex: H0wNoVV!!">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12" id="errSignUpMessage"></div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" id="openLoginModal" class="btn btn-primary btn-sm" data-dismiss="modal"> Back
+                        to Login</button>
+                    <button type="button" id="btnSignUp" class="btn btn-secondary btn-sm">Signup</button>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary d-none" id="openModal" data-toggle="modal" data-target="#loginModal"></button>
+    <!-- End of modals for login and sign up -->
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+
+    <script src="./assets/javascript/config.js"></script>
+    <script src="./assets/javascript/login.js"></script>
+    <script src="./assets/javascript/triviaLogic.js"></script>
+    <script src="./assets/javascript/script.js"></script>
+    <script src="./assets/javascript/chat.js"></script>
+    <script>
+        var langs =
+            [['Afrikaans', ['af-ZA']],
+            ['Bahasa Indonesia', ['id-ID']],
+            ['Bahasa Melayu', ['ms-MY']],
+            ['Català', ['ca-ES']],
+            ['Čeština', ['cs-CZ']],
+            ['Deutsch', ['de-DE']],
+            ['English', ['en-AU', 'Australia'],
+                ['en-CA', 'Canada'],
+                ['en-IN', 'India'],
+                ['en-NZ', 'New Zealand'],
+                ['en-ZA', 'South Africa'],
+                ['en-GB', 'United Kingdom'],
+                ['en-US', 'United States']],
+            ['Español', ['es-AR', 'Argentina'],
+                ['es-BO', 'Bolivia'],
+                ['es-CL', 'Chile'],
+                ['es-CO', 'Colombia'],
+                ['es-CR', 'Costa Rica'],
+                ['es-EC', 'Ecuador'],
+                ['es-SV', 'El Salvador'],
+                ['es-ES', 'España'],
+                ['es-US', 'Estados Unidos'],
+                ['es-GT', 'Guatemala'],
+                ['es-HN', 'Honduras'],
+                ['es-MX', 'México'],
+                ['es-NI', 'Nicaragua'],
+                ['es-PA', 'Panamá'],
+                ['es-PY', 'Paraguay'],
+                ['es-PE', 'Perú'],
+                ['es-PR', 'Puerto Rico'],
+                ['es-DO', 'República Dominicana'],
+                ['es-UY', 'Uruguay'],
+                ['es-VE', 'Venezuela']],
+            ['Euskara', ['eu-ES']],
+            ['Français', ['fr-FR']],
+            ['Galego', ['gl-ES']],
+            ['Hrvatski', ['hr_HR']],
+            ['IsiZulu', ['zu-ZA']],
+            ['Íslenska', ['is-IS']],
+            ['Italiano', ['it-IT', 'Italia'],
+                ['it-CH', 'Svizzera']],
+            ['Magyar', ['hu-HU']],
+            ['Nederlands', ['nl-NL']],
+            ['Norsk bokmål', ['nb-NO']],
+            ['Polski', ['pl-PL']],
+            ['Português', ['pt-BR', 'Brasil'],
+                ['pt-PT', 'Portugal']],
+            ['Română', ['ro-RO']],
+            ['Slovenčina', ['sk-SK']],
+            ['Suomi', ['fi-FI']],
+            ['Svenska', ['sv-SE']],
+            ['Türkçe', ['tr-TR']],
+            ['български', ['bg-BG']],
+            ['Pусский', ['ru-RU']],
+            ['Српски', ['sr-RS']],
+            ['한국어', ['ko-KR']],
+            ['中文', ['cmn-Hans-CN', '普通话 (中国大陆)'],
+                ['cmn-Hans-HK', '普通话 (香港)'],
+                ['cmn-Hant-TW', '中文 (台灣)'],
+                ['yue-Hant-HK', '粵語 (香港)']],
+            ['日本語', ['ja-JP']],
+            ['Lingua latīna', ['la']]];
+
+        for (var i = 0; i < langs.length; i++) {
+            select_language.options[i] = new Option(langs[i][0], i);
+        }
+        select_language.selectedIndex = 6;
+        updateCountry();
+        select_dialect.selectedIndex = 6;
+        showInfo('info_start');
+
+        function updateCountry() {
+            for (var i = select_dialect.options.length - 1; i >= 0; i--) {
+                select_dialect.remove(i);
+            }
+            var list = langs[select_language.selectedIndex];
+            for (var i = 1; i < list.length; i++) {
+                select_dialect.options.add(new Option(list[i][1], list[i][0]));
+            }
+            select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+        }
+
+        var create_email = false;
+        var final_transcript = '';
+        var recognizing = false;
+        var ignore_onend;
+        var start_timestamp;
+        if (!('webkitSpeechRecognition' in window)) {
+            upgrade();
+        } else {
+            start_button.style.display = 'inline-block';
+            var recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onstart = function () {
+                recognizing = true;
+                showInfo('info_speak_now');
+                start_img.src = 'mic-animate.gif';
+            };
+
+            recognition.onerror = function (event) {
+                if (event.error == 'no-speech') {
+                    start_img.src = 'mic.gif';
+                    showInfo('info_no_speech');
+                    ignore_onend = true;
+                }
+                if (event.error == 'audio-capture') {
+                    start_img.src = 'mic.gif';
+                    showInfo('info_no_microphone');
+                    ignore_onend = true;
+                }
+                if (event.error == 'not-allowed') {
+                    if (event.timeStamp - start_timestamp < 100) {
+                        showInfo('info_blocked');
+                    } else {
+                        showInfo('info_denied');
+                    }
+                    ignore_onend = true;
+                }
+            };
+
+            recognition.onend = function () {
+                recognizing = false;
+                if (ignore_onend) {
+                    return;
+                }
+                start_img.src = 'mic.gif';
+                if (!final_transcript) {
+                    showInfo('info_start');
+                    return;
+                }
+                showInfo('');
+                if (window.getSelection) {
+                    window.getSelection().removeAllRanges();
+                    var range = document.createRange();
+                    range.selectNode(document.getElementById('final_span'));
+                    window.getSelection().addRange(range);
+                }
+                if (create_email) {
+                    create_email = false;
+                    createEmail();
+                }
+            };
+
+            recognition.onresult = function (event) {
+                var interim_transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        final_transcript += event.results[i][0].transcript;
+                    } else {
+                        interim_transcript += event.results[i][0].transcript;
+                    }
+                }
+                final_transcript = capitalize(final_transcript);
+                final_span.innerHTML = linebreak(final_transcript);
+                interim_span.innerHTML = linebreak(interim_transcript);
+                if (final_transcript || interim_transcript) {
+                    showButtons('inline-block');
+                }
+            };
+        }
+
+        function upgrade() {
+            start_button.style.visibility = 'hidden';
+            showInfo('info_upgrade');
+        }
+
+        var two_line = /\n\n/g;
+        var one_line = /\n/g;
+        function linebreak(s) {
+            return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+        }
+
+        var first_char = /\S/;
+        function capitalize(s) {
+            return s.replace(first_char, function (m) { return m.toUpperCase(); });
+        }
+
+        function createEmail() {
+            var n = final_transcript.indexOf('\n');
+            if (n < 0 || n >= 80) {
+                n = 40 + final_transcript.substring(40).indexOf(' ');
+            }
+            var subject = encodeURI(final_transcript.substring(0, n));
+            var body = encodeURI(final_transcript.substring(n + 1));
+            window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+        }
+
+        function copyButton() {
+            if (recognizing) {
+                recognizing = false;
+                recognition.stop();
+            }
+            copy_button.style.display = 'none';
+            copy_info.style.display = 'inline-block';
+            showInfo('');
+        }
+
+        function emailButton() {
+            if (recognizing) {
+                create_email = true;
+                recognizing = false;
+                recognition.stop();
+            } else {
+                createEmail();
+            }
+            email_button.style.display = 'none';
+            email_info.style.display = 'inline-block';
+            showInfo('');
+        }
+
+        function startButton(event) {
+            if (recognizing) {
+                recognition.stop();
+                return;
+            }
+            final_transcript = '';
+            recognition.lang = select_dialect.value;
+            recognition.start();
+            ignore_onend = false;
+            final_span.innerHTML = '';
+            interim_span.innerHTML = '';
+            start_img.src = 'mic-slash.gif';
+            showInfo('info_allow');
+            showButtons('none');
+            start_timestamp = event.timeStamp;
+        }
+
+        function showInfo(s) {
+            if (s) {
+                for (var child = info.firstChild; child; child = child.nextSibling) {
+                    if (child.style) {
+                        child.style.display = child.id == s ? 'inline' : 'none';
+                    }
+                }
+                info.style.visibility = 'visible';
+            } else {
+                info.style.visibility = 'hidden';
+            }
+        }
+
+        var current_style;
+        function showButtons(style) {
+            if (style == current_style) {
+                return;
+            }
+            current_style = style;
+            copy_button.style.display = style;
+            email_button.style.display = style;
+            copy_info.style.display = 'none';
+            email_info.style.display = 'none';
+        }
+        
+        document.onkeydown = function (e) {
+            switch (e.keyCode) {
+                case 37:
+                    $("#answ4").click();
+                case 38:
+                    $("#answ1").click();
+                case 39:
+                    $("#answ2").click();
+                case 40:
+                    $("#answ3").click();
+            }
+        };
+    </script>
+</body>
+
+</html>
